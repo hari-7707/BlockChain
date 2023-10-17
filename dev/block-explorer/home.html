@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+			crossorigin="anonymous"
+		></script>
+		<title>Home</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				scroll-behavior: smooth;
+			}
+			#addTransaction,
+			#blockchain,
+			#pendingTransaction,
+			#findBlock,
+			#mine,#concensus ,#addNode{
+				margin: auto;
+				width: 80%;
+				padding: 1rem;
+				margin-top: 1rem;
+			}
+			.black {
+				background-color: black;
+				color: white;
+			}
+			.btn:hover {
+				color: #fff;
+				background-color: black;
+				transform: translate(5);
+			}
+			.wrap {
+				display: flex;
+				flex-direction: row !important;
+				flex-wrap: wrap !important;
+				justify-content: center;
+			}
+			.box-shadow{
+				box-shadow: rgba(11, 11, 11, 0.35) 0px 5px 15px;
+			}
+			.mlb {
+				margin-left: 1rem;
+				margin-bottom: 1rem;
+			}
+			.mb {
+				margin-bottom: 1rem;
+			}
+			.strong {
+				font-weight: 500;
+			}
+			.ul {
+				list-style: none;
+			}
+			.banner {
+				width: 100%;
+				padding:1.5rem;
+				height: 100vh;
+				background: #000 !important ;
+				object-fit: scale-down;
+				display: flex;
+				flex-direction: row;
+				overflow: hidden;
+			}
+			.container2{
+				flex:1
+			}
+			.container1{
+				display: flex;
+				flex:3;
+				flex-direction: column;
+				padding-left:2rem;
+				justify-content: center;
+			}
+			.mar05{
+				margin: 0.5rem !important;
+				height:40px !important;
+			}
+			body{
+				background: #090d16;
+				background-attachment: fixed;
+			}
+			nav{
+				position: sticky !important ;
+				top:0;
+				z-index: 100;
+			}
+			.noflex{
+				display: block  ;
+			}
+			.spinn,.spinConcensus{
+				visibility:hidden ;
+			}
+			.container-image{
+				object-fit: cover;
+			}
+			h1,h2,h3,h4,h5,h6{
+				font-weight: 600;
+				margin-bottom: 0.25rem;
+			}
+			.fsxxxl{
+				font-size: xx-large;
+				color:white !important;
+			}
+			.fsxxl{
+				font-size: x-large;
+				color:white !important;
+			}
+			.author{
+				margin-left: 2rem;
+				margin-top: 2rem;
+			}
+			.w100{
+				width: 1000px !important;
+				/* height: ?00px !important; */
+				margin: 0;
+
+			}
+			.modal-dialog{
+				max-width:1000px !important;
+			}
+			.center{
+				transform: translateX(22%) !important;
+			}
+			.mt{
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">BlockChain</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#findBlock">Search block</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#addTransaction">Add Transaction</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#mine">Mine Block</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#concensus">Check Validity</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="navbar-brand" id="nodeName" href="#"></div>
+			</div>
+		</nav>
+		<div class="banner">
+			<div class="container1">
+				<div class="fsxxxl">
+					The blockchain symbolizes a shift in power from the centers to the edges of the networks.
+				</div>
+				<i>
+				<div class="author fsxxl">- William Mougayar</div>
+			</i>
+			</div>
+			<image src="static/images/background.jpg" class="container-image">
+		</div>
+
+
+		<div id="blockchain" class="card noflex" >
+			<div class="d-inline-flex justify-content-around"  >
+			<div>
+			<span><h2>Blocks in blockchain</h2></span>
+			<h5>No of blocks in blockchain <span id="noOfBlocks" ></span> </h5>
+		</div>
+		<div>
+			<button style="margin:20px" class="btn btn-dark " onClick="window.location.reload()"> Refresh </button>
+		</div>
+		
+	</div>
+			<br />
+			<br />
+			<div class="blocks wrap"></div>
+		</div>
+		<div class="card" id="pendingTransaction">
+			<h2>Pending Transactions  </h2>
+			<div class="table-responsive">
+				<table class="table table-bordered align-middle">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">S.no</th>
+							<th scope="col">Sender</th>
+							<th scope="col">Recipient</th>
+							<th scope="col">Amount</th>
+						</tr>
+					</thead>
+					<tbody id="pendingTransactionBody"> </tbody>
+				</table>
+			</div>
+		</div>
+
+		<div id="addNode" class="card">
+			<h1> Add new node </h1>
+			<h5>No of nodes in network <span id="noOfnodes" ></span> </h5>
+
+			<form
+				action="/register-and-broadcast-node"
+				method="post"
+				onsubmit=" event.preventDefault(); return addNode()"
+			>
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label"
+						>Enter new node URL</label
+					>
+
+					<input
+						type="url"
+						class="form-control"
+						id="newNodeUrl"
+						placeholder="http://localhost:3001"
+						required
+					/>
+				</div>
+				<input type="button" name="reset_form"  id="hide_addNode"  onclick="this.form.reset();" hidden >
+				<input type="submit" class="btn btn-dark" value="Add Node" />
+
+			</form>
+		</div>
+
+
+		
+
+		<div id="addTransaction" class="card">
+			<h1> Add Transaction </h1>
+			<form
+				action="/transaction/broadcast/"
+				method="post"
+				onsubmit=" event.preventDefault(); return addTransactions()"
+			>
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label"
+						>Amount</label
+					>
+					<input
+						type="number"
+						class="form-control"
+						id="amount"
+						placeholder="1000"
+						required
+					/>
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlTextarea1" class="form-label"
+						>Sender</label
+					>
+					<input type="text" class="form-control" id="sender" required />
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlTextarea1" class="form-label"
+						>Receiver</label
+					>
+					<input type="text" class="form-control" id="recipient" required />
+				</div>
+				<input type="button" name="reset_form"  id="hide_addtxn"  onclick="this.form.reset();" hidden >
+				<input type="submit" class="btn btn-dark" value="Add Transaction" />
+			</form>
+		</div>
+
+
+			<!-- mine -->
+			<div class="card " id="mine">
+				<h2>Mine Block</h2>
+				<h5>Create a new block out of pending transactions using Proof Of Work</h5>
+				<h5>Miner recieves rewards for mining</h5>
+				<div class="spinner-border mx-auto spinn " role="status">
+					<span class="visually-hidden">Loading...</span>
+				  </div>
+				  <div>
+				<button class="btn btn-dark" onclick="mineBlock()" >Mine Block</button>
+			</div>
+		</div>
+
+
+		<div id="findBlock" class="card">
+			<h1> Find Block </h1>
+			<form
+				action="/transaction/broadcast/"
+				method="post"
+				onsubmit=" event.preventDefault(); return findBlock()"
+			>
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label"
+						>Enter Block Hash</label
+					>
+
+					<input
+						type="text"
+						class="form-control"
+						id="hash"
+						placeholder="0000fb2f8dedc0afa4945c6427ab818799cb4f5e343bdcff0ec8b267e0211fa1"
+						required
+					/>
+				</div>
+				<input type="button" name="reset_form"  id="hide_findblock"  onclick="this.form.reset();" hidden >
+				<input type="submit" class="btn btn-dark" value="Find Block" />
+
+				<div id="findBlockResult"></div>
+			</form>
+		</div>
+		
+		
+
+		
+	
+
+	<div class="card " id="concensus">
+		<h2>Check validity</h2>
+		<h5>Test validity of blockchain across the network</h5>
+		<div class="spinner-border mx-auto spinConcensus " role="status">
+			<span class="visually-hidden">Loading...</span>
+		  </div>
+		  <div>
+		<button class="btn btn-dark" onclick="concensus()" >Check Validity</button>
+	</div>
+</div>
+
+
+	<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header" id="toast" >
+      <strong class="me-auto">Notification</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body mar05">
+	</div>
+  </div>
+</div>
+
+<!-- 	modal -->
+		<div
+			class="modal modal-xl fade center"
+			id="exampleModal"
+			tabindex="-1"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog  modal-dialog-lg w100 modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Transactions</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<!-- Scrollable modal -->
+						<div class="modal-dialog modal-dialog-scrollable">
+							<div class="table-responsive">
+								<table class="table table-bordered align-middle">
+									<thead class="table-dark">
+										<tr>
+											<th scope="col">S.no</th>
+											<th scope="col">Sender</th>
+											<th scope="col">Recipient</th>
+											<th scope="col">Amount</th>
+										</tr>
+									</thead>
+									<tbody id="BlockTransactionBody"> </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+						>
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<footer style="height: 1rem; width: 1rem;" ></footer>
+	</body>
+
+
+
+	<script
+		async
+		src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+		integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+		crossorigin="anonymous"
+	></script>
+
+
+
+	<script>
+		var blocksTransactons = [];
+
+		const addNode =  async() =>{
+			// hide_addNode
+			const newURL = document.querySelector('#newNodeUrl').value;
+			const params = new URLSearchParams();
+			params.append('newNodeUrl',newURL);
+
+			const result = await axios.post('/register-and-broadcast-node',params, {headers: {
+    			'Content-Type': 'application/x-www-form-urlencoded'
+  			}})
+			  if(result.data.state!=="failure")
+			{
+				document.querySelector("#toast").classList += " bg-success ";
+				document.querySelector("#toast").style.color = "white";
+				init();
+
+			}
+			else{
+				document.querySelector("#toast").classList += " bg-danger ";
+				document.querySelector("#toast").style.color = "white";
+			}
+			showToast(result.data.note)
+			document.querySelector('#hide_addNode').click()
+
+			console.log(newURL)
+		}
+
+		const changeModleContent = (index)=>{
+
+			var data = blocksTransactons[index-1];
+			console.log(data,index,blocksTransactons)
+			var chainFrag = document.createDocumentFragment();
+			if(!(data.length===0))
+			{
+				data.forEach(((value, index) => {
+				var tr = document.createElement("tr");
+				var th = document.createElement("th");
+				var td1 = document.createElement("td");
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				th.scope = "row";
+				th.textContent = index + 1;
+				td1.textContent = value["sender"];
+				td2.textContent = value["recipient"];
+				td3.textContent = value["amount"];
+
+				tr.appendChild(th);
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+
+				chainFrag.appendChild(tr);
+			document.querySelector("#BlockTransactionBody").textContent = "";
+			}))
+			}
+			else{
+			document.querySelector("#BlockTransactionBody").textContent = "No transactions";
+
+			}
+			// data.forEach(((value, index) => {
+			// 	var tr = document.createElement("tr");
+			// 	var th = document.createElement("th");
+			// 	var td1 = document.createElement("td");
+			// 	var td2 = document.createElement("td");
+			// 	var td3 = document.createElement("td");
+			// 	th.scope = "row";
+			// 	th.textContent = index + 1;
+			// 	td1.textContent = value["sender"];
+			// 	td2.textContent = value["recipient"];
+			// 	td3.textContent = value["amount"];
+
+			// 	tr.appendChild(th);
+			// 	tr.appendChild(td1);
+			// 	tr.appendChild(td2);
+			// 	tr.appendChild(td3);
+
+			// 	chainFrag.appendChild(tr);
+			// }))
+			document.querySelector("#BlockTransactionBody").appendChild(chainFrag);
+		};
+		
+		
+		const findBlock = async ()=>{
+			const hash = document.querySelector('#hash').value
+
+			const result = await axios.get(`/block/${hash}`)
+			const item =result.data.block;
+			// #findBlockResult
+			var childFrag = document.createDocumentFragment();
+			var div = document.createElement("div");
+
+			Object.entries(item).map((value) => {
+					var innerdiv = document.createElement("div");
+					if (value[0] === "transactions") {
+						innerdiv.innerHTML =
+							value[0] +
+							" : " +
+							`<input type="button"
+							class="btn black btn-sm showTxn"
+							type="button"
+							data-bs-toggle="modal"
+							data-bs-target="#exampleModal"
+							value = "Show Transactions"
+							>`;
+							innerdiv.addEventListener('click',()=>{
+							changeModleContent(item.index)
+
+							})
+							
+					} else if (!(typeof value[1] === "object" && value[1].length === 0))
+						innerdiv.innerHTML =
+							value[0] + " : " + "<span class='strong'>" + value[1] + "</span>";
+					else
+						innerdiv.innerHTML =
+							value[0] + " : " + "<span class='strong'>" + "Empty" + "</span>";
+					div.appendChild(innerdiv);
+				});
+				div.classList = "card mb mt box-shadow";
+				div.style = "width: 17rem; padding: 1rem; border-radius: 5px;"
+				childFrag.appendChild(div);
+				document.querySelector('#findBlockResult').innerHTML = "";
+				document.querySelector('#findBlockResult').appendChild(childFrag);
+			document.querySelector('#hide_findblock').click()
+		}
+		const showToast = (message) =>{
+			const option = {
+				animation:true,
+				autohide:true,
+				duration:1000
+			}
+			document.querySelector( '.toast-body').textContent = message
+			var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+			var toastList = toastElList.map(function (toastEl) {
+  					return new bootstrap.Toast(toastEl, option)
+			})
+			toastList[0].show()
+		}
+
+		const log = (data) => {
+			alert(data);
+			console.log(data);
+		};
+
+		const addBlockOnUI = (data) => {
+			var chainFrag = document.createDocumentFragment();
+			document.querySelector('#noOfBlocks').textContent = data.length;
+			data.map((item, index) => {
+				var div = document.createElement("div");
+				div.className = "card mb box-shadow";
+				div.style.width = "17rem";
+				div.style.padding = "1rem";
+				div.style.borderRadius = "5px";
+				if(item.transactions.length === 0)
+				blocksTransactons.push([])
+				else
+				blocksTransactons.push(item.transactions)
+
+				Object.entries(item).map((value) => {
+					var innerdiv = document.createElement("div");
+					if (value[0] === "transactions") {
+						innerdiv.innerHTML =
+							value[0] +
+							" : " +
+							`<input type="button"
+							class="btn black btn-sm showTxn"
+							type="button"
+							data-bs-toggle="modal"
+							data-bs-target="#exampleModal"
+							value = "Show Transactions"
+							>`;
+							innerdiv.addEventListener('click',()=>{
+							changeModleContent(index+1)
+
+							})
+					} else if (!(typeof value[1] === "object" && value[1].length === 0))
+						innerdiv.innerHTML =
+							value[0] + " : " + "<span class='strong'>" + value[1] + "</span>";
+					else
+						innerdiv.innerHTML =
+							value[0] + " : " + "<span class='strong'>" + "Empty" + "</span>";
+					div.appendChild(innerdiv);
+				});
+
+				chainFrag.appendChild(div);
+				if (index != data.length - 1) {
+					var arrow = document.createElement("h1");
+					// arrow.innerHTML = "&#8594;";
+					arrow.innerHTML = "&#8680;";
+					// arrow.innerHTML = "&#x2B95;";
+					arrow.style.fontSize = "4rem";
+					arrow.style.alignSelf = "center";
+
+					chainFrag.appendChild(arrow);
+				}
+			});
+			document.querySelector(".blocks").textContent = "";
+			document.querySelector(".blocks").appendChild(chainFrag);
+			// console.log(blocksTransactons);
+		};
+
+		const addTransactions =async (data)=>{
+
+
+
+			let amount = document.querySelector("#amount").value;
+			let sender = document.querySelector("#sender").value;
+			let recipient = document.querySelector("#recipient").value;
+			const params = new URLSearchParams();
+			params.append('amount',amount);
+			params.append('sender',sender);
+			params.append('recipient',recipient);
+			const result = await axios.post('/transaction/broadcast',params, {headers: {
+    			'Content-Type': 'application/x-www-form-urlencoded'
+  			}})
+			  if(result.data.state!=="failure")
+			{
+				document.querySelector("#toast").classList += " bg-success ";
+				document.querySelector("#toast").style.color = "white";
+				init();
+
+			}
+			else{
+				document.querySelector("#toast").classList += " bg-danger ";
+				document.querySelector("#toast").style.color = "white";
+			}
+			showToast(result.data.note)
+			document.querySelector('#hide_addtxn').click()
+			init();
+		}
+
+		const mineBlock = async ()=>{
+			document.querySelector('.spinn').style.visibility = "visible"
+			const result = await axios.get('/mine')
+			document.querySelector('.spinn').style.visibility = "hidden"
+			if(result.data.state!=="failure")
+			{
+				document.querySelector("#toast").classList += " bg-success ";
+				document.querySelector("#toast").style.color = "white";
+				init();
+
+			}
+			else{
+				document.querySelector("#toast").classList += " bg-danger ";
+				document.querySelector("#toast").style.color = "white";
+			}
+			showToast(result.data.note)
+		}
+	
+	
+		const changePendingTransactiononUI = (data) => {
+			var chainFrag = document.createDocumentFragment();
+			var ol = document.createElement("ul");
+			ol.className = "wrap ul";
+			
+			data.pendingTransactions.map((value, index) => {
+				var tr = document.createElement("tr");
+				var th = document.createElement("th");
+				var td1 = document.createElement("td");
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				th.scope = "row";
+				th.textContent = index + 1;
+				td1.textContent = value["sender"];
+				td2.textContent = value["recipient"];
+				td3.textContent = value["amount"];
+
+				tr.appendChild(th);
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+
+				chainFrag.appendChild(tr);
+			});
+			document.querySelector("#pendingTransactionBody").textContent = "";
+			document.querySelector("#pendingTransactionBody").appendChild(chainFrag);
+		};
+		
+		const updateUser = () => {
+			axios.get("/address").then((res) => {
+				document.querySelector("#nodeName").textContent = res.data.address;
+			});
+		};
+
+		const concensus = async() => {
+			document.querySelector('.spinConcensus').style.visibility = "visible"
+			const result = await axios.get('/consensus')
+			document.querySelector('.spinConcensus').style.visibility = "hidden"
+			if(result.data.state!=="failure")
+			{
+				document.querySelector("#toast").classList += " bg-success ";
+				document.querySelector("#toast").style.color = "white";
+				init();
+
+			}
+			else{
+				document.querySelector("#toast").classList += " bg-danger ";
+				document.querySelector("#toast").style.color = "white";
+			}
+			showToast(result.data.note)
+		}
+
+		const init = () => {
+			blocksTransactons = []
+			axios.get("/blockchain").then((res) => {
+				
+				document.querySelector("#noOfnodes").textContent =  (res.data.networkNodes.length ===0)?1:res.data.networkNodes.length+1 ;
+				
+				addBlockOnUI(res.data.chain);
+				changePendingTransactiononUI(res.data);
+				updateUser();
+			});
+		};
+
+		window.addEventListener("load", () => {
+			init();
+		});
+	</script>
+</html>
